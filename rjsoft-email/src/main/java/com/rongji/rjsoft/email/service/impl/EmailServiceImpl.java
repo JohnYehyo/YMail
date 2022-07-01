@@ -426,14 +426,14 @@ public class EmailServiceImpl implements IEmailService {
         doc.setCreateTime(new Date());
 
         BufferedInputStream bis = new BufferedInputStream(is);
-        BufferedOutputStream bos = new BufferedOutputStream(
-                new FileOutputStream(new File(destDir + uuidFilename)));
-        int len = -1;
-        while ((len = bis.read()) != -1) {
-            bos.write(len);
-            bos.flush();
+        try (BufferedOutputStream bos = new BufferedOutputStream(
+                new FileOutputStream(new File(destDir + uuidFilename)))) {
+            int len = -1;
+            while ((len = bis.read()) != -1) {
+                bos.write(len);
+                bos.flush();
+            }
         }
-        bos.close();
         bis.close();
         return doc;
     }
