@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongji.rjsoft.email.mapper.EmailSendDetailsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rongji.rjsoft.email.entity.EmailSendDetails">
+        <id column="id" property="id" />
+        <result column="email_host" property="emailHost" />
+        <result column="email_port" property="emailPort" />
+        <result column="email_auth" property="emailAuth" />
+        <result column="email_content" property="emailContent" />
+        <result column="email_files" property="emailFiles" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,108 @@
+spring:
+  #数据库连接
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: dm.jdbc.driver.DmDriver
+    druid:
+      url: jdbc:dm://218.28.133.52:7118/MAILDB?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      username: HOLIDAY{NPfk04TXtBMzoJsHHj1bhO+sNoUu2iiVoy7t0/8FyaikKX8Uz/G9ujH79zo9DQb+2sSpk44E4aOhcavd6dVW1isgb0htxAmPOXdnTxuCgkZuRVHEkwAdOk/gz6xumkfVFq1T7bVeU/7Xv8W9B8Y6wDvhT67dzaGy38eK6agLe6W9XL5hAAk+BikMjjueP3rBDzU0wIJ2iesMGjP9J5ceTorRoMryKYS6t08U0x9Z0bvJpwZCSNcTPgNP8mDbUEEaJQuqwX7/1sLb9GOHPJjcuwaaLeT0WgAQO1qJr02AVPN3CdyNf7i+ghoS1AWoI7z7GTJbOTjlKpBiLHXKV+zA/A==}
+      password: HOLIDAY{j4LhukMaFyIlIRp0hDDqVOpIO3SyRHhGRqmUHkMgSPqyHjJPlxgZK8j+z7yiYje2JCcJpYcRqpqZ4pDguUVkIfd0aooUDPQbbZG1eLWmr2ukVp3IbtzwEnQflv4QOhVhyybxn45mJh/+ITPESjCI1YjKoxaAzffwupqqt/0BqJWVYDgmPlxnl4Pkg6Aj3ed+rATTlEdUzXHowEgA/qHnNDrvWr0uxAaHx9Hbq1suxGwr8xTmXaExn/praOYICAYWgUx3t9ov0egCazmMsqCFEPdlebDhG7Z+I3o0xTTSPIunVkEA57K7tfehaG5YuyZWSxIJD8Xea5p/hrIBscOXKg==}
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+        # 设置白名单，不填则允许所有访问
+        allow:
+        url-pattern: /druid/*
+        # 控制台管理用户名和密码
+        login-username: admin
+        login-password: 123456
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+  #redis
+  redis:
+    host: 218.28.133.52
+    #    password: 123456
+    port: 7113
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 200
+        max-wait: -1
+        max-idle: 20
+        min-idle: 0
+  servlet:
+    multipart:
+      resolve-lazily: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+server:
+  tomcat:
+    max-swallow-size: -1
+
+#文件存储路径
+file:
+  path: D:\other\file
+  avator: /avator
+  download: /download
+  upload: /upload
+  email: /email
+  # 文件大小 /M
+  maxSize: 100
+  avatarMaxSize: 50
+  localUrl: http://127.0.0.1:8088
+  static:
+#    folder: D://study/frame/cms/html/path
+    folder: D://other//file
+# swagger开关
+swagger:
+  enable: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    database-id: dm
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: id_worker
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      db-type: dm
+      table-prefix: MAILDB.
+    #刷新mapper 调试神器
+    refresh: true
+  configuration-properties:
+    prefix: MAILDB.
+  mapper-locations: classpath*:mapper/*.xml

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rongji.rjsoft.email.mapper.EmailSendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.rongji.rjsoft.email.entity.EmailSend">
+        <id column="id" property="id" />
+        <result column="email_from" property="emailFrom" />
+        <result column="email_user" property="emailUser" />
+        <result column="email_to" property="emailTo" />
+        <result column="email_cc" property="emailCc" />
+        <result column="email_bcc" property="emailBcc" />
+        <result column="email_subject" property="emailSubject" />
+        <result column="email_type" property="emailType" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <select id="getPage" resultType="com.rongji.rjsoft.email.vo.EmailSendVo">
+        select id, email_to, email_cc, email_subject, email_type, create_time from ${prefix}email_send
+        <where>
+            <if test="null != param.subject and param.subject != ''">
+                subject like concat(#{param.subject}, "%")
+            </if>
+            and del_flag = 0
+        </where>
+        order by create_time desc
+    </select>
+
+</mapper>
